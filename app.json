@@ -1,0 +1,12 @@
+{
+  "name": "todo-redux",
+  "displayName": "todo-redux",
+  "expo": {
+    "name": "todo-redux",
+    "slug": "todo-redux",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
