@@ -5,17 +5,19 @@ import { selectTodoList } from "../redux/features/todoSlice";
 import TodoRow from "./todoRow";
 
 
-const TodoList = () => {
+const TodoList = ({navigation}) => {
 
   const todos = useSelector(selectTodoList);
 
-  const renderItem = ({item}) => <TodoRow item={item} />
+  const renderItem = ({ item }) => (
+    <TodoRow item={item} navigation={navigation} />
+  );
 
   return (
     <FlatList
       data={todos}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.id.toString() }
       contentContainerStyle={styles.list}
     />
   );

@@ -1,9 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
-const TodoRow = ({item}) => {
+const TodoRow = ({item, navigation}) => {
+
+  const handlePress = () => {
+    navigation.navigate("NoteScreen", {note: item})
+  }
+
   return (
-    <TouchableOpacity style={styles.row}>
+    <TouchableOpacity style={styles.row} onPress={handlePress}>
       <Text>{item.title}</Text>
     </TouchableOpacity>
   )
