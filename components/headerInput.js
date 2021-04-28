@@ -14,7 +14,7 @@ const HeaderInput = () => {
   }
 
   return (
-    <View style={{flex: 1}}>
+    <View>
       <TextInput
         style={styles.input}
         value={currentTitle}

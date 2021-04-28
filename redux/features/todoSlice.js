@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+// import { axios } from "../../utils/axios";
 // Dummy data
 
 const jsonList =
@@ -17,10 +17,22 @@ const initialState = {
   activeNote: {},
 };
 
+// Thunk function
+ export const fetchTodoList = async (dispatch, getState) => {
+  //  const { data } = await axios.get(`http://localhost:3001/api/v1/notes`);
+   console.log({data})
+  //  dispatch(loadTodoList(data));
+ };
+
+
+
 const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
+    loadTodoList: (state, action) => {
+      state.todoList = action.payload;
+    },
     saveTodo: (state, action) => {
       state.todoList.push(action.payload); // All notes
     },
