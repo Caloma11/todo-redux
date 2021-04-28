@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 
@@ -7,8 +9,7 @@ import loadTodoList from "./redux/features/todoSlice";
 import MainNavigator from "./components/mainNavigator";
 
 export default function App() {
-
-stored.dispatch(loadTodoList);
+  store.dispatch(loadTodoList);
 
   return (
     <Provider store={store}>
@@ -17,4 +18,3 @@ stored.dispatch(loadTodoList);
     </Provider>
   );
 }
-
