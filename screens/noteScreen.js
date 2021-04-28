@@ -1,14 +1,14 @@
 import React from "react";
-import { StyleSheet, View, Text, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
+import DescriptionInput from "../components/descriptionInput";
+import DeleteNoteButton from "../components/deleteNoteButton";
 
-const NoteScreen = ({route}) => {
-
-  const note = route.params.note;
+const NoteScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{note.title}</Text>
-      <Text style={styles.description}>{note.description}</Text>
+      <DescriptionInput navigation={navigation} />
+      <DeleteNoteButton navigation={navigation} />
     </View>
   );
 };
@@ -21,11 +21,7 @@ const styles = StyleSheet.create({
     minHeight: Dimensions.get("window").height,
     minWidth: Dimensions.get("window").width,
     padding: 40,
+    paddingBottom: 60,
+    flex: 1,
   },
-  title: {
-    fontWeight: 'bold'
-  },
-  description: {
-    marginTop: 32,
-  }
 });

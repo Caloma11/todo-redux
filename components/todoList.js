@@ -13,9 +13,17 @@ const TodoList = ({navigation}) => {
     <TodoRow item={item} navigation={navigation} />
   );
 
+  const data =
+    todos.length === 0
+      ? []
+      : [
+          ...todos.slice(0, todos.length - 1),
+          { last: true, ...todos[todos.length - 1] },
+        ];
+
   return (
     <FlatList
-      data={todos}
+      data={data}
       renderItem={renderItem}
       keyExtractor={(item) => item.id.toString() }
       contentContainerStyle={styles.list}
@@ -25,11 +33,10 @@ const TodoList = ({navigation}) => {
 
 const styles = StyleSheet.create({
   list: {
-    backgroundColor: 'pink',
+    backgroundColor: "#FBB7C0",
     minHeight: Dimensions.get("window").height,
     minWidth: Dimensions.get("window").width,
-    padding: 40,
-  }
-})
+  },
+});
 
 export default TodoList
