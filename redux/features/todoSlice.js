@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { axios } from "../../utils/axios";
+import { axios } from "../../utils/axios";
+import store from "../stores/store"
 // Dummy data
 
 const jsonList =
@@ -17,12 +18,19 @@ const initialState = {
   activeNote: {},
 };
 
+
 // Thunk function
- export const fetchTodoList = async (dispatch, getState) => {
-  //  const { data } = await axios.get(`http://localhost:3001/api/v1/notes`);
-   console.log({data})
-  //  dispatch(loadTodoList(data));
- };
+ export const fetchTodoList =  (dispatch, getState) => {
+fetch("https://polar-reaches-33143.herokuapp.com/api/v1/notes")
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data)
+    store.dispatch(loadTodoList(data));
+  })
+  .catch((a) => console.log(a));
+
+  return {type: "a",}
+ }
 
 
 
@@ -89,6 +97,7 @@ export const { setActiveNote } = todoSlice.actions;
 export const { updateActiveNote } = todoSlice.actions;
 export const { deleteActiveNote } = todoSlice.actions;
 export const { saveTodo } = todoSlice.actions;
+export const { loadTodoList } = todoSlice.actions;
 
 export const selectCurrentTitle = (state) => state.todos.currentTitle;
 export const selectCurrentDescription = (state) =>
