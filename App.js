@@ -20,3 +20,7 @@ export default function App() {
     </Provider>
   );
 }
+
+// Long press delete
+// Time updated
+// Login logout
