@@ -3,12 +3,12 @@ import { StyleSheet, View, Dimensions } from "react-native";
 import DescriptionInput from "../components/descriptionInput";
 import DeleteNoteButton from "../components/deleteNoteButton";
 
-const NoteScreen = ({navigation}) => {
+const NoteScreen = ({navigation, toggleLoaded}) => {
 
   return (
     <View style={styles.container}>
       <DescriptionInput navigation={navigation} />
-      <DeleteNoteButton navigation={navigation} />
+      <DeleteNoteButton navigation={navigation} toggleLoaded={toggleLoaded} />
     </View>
   );
 };

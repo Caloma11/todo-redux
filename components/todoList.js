@@ -1,24 +1,21 @@
 import React from 'react'
 import { StyleSheet, FlatList, Dimensions } from 'react-native'
-import { useSelector } from "react-redux";
-import { selectTodoList } from "../redux/features/todoSlice";
 import TodoRow from "./todoRow";
 
 
-const TodoList = ({navigation}) => {
+const TodoList = ({navigation, todoList}) => {
 
-  const todos = useSelector(selectTodoList);
 
   const renderItem = ({ item }) => (
     <TodoRow item={item} navigation={navigation} />
   );
 
   const data =
-    todos.length === 0
+    todoList.length === 0
       ? []
       : [
-          ...todos.slice(0, todos.length - 1),
-          { last: true, ...todos[todos.length - 1] },
+          ...todoList.slice(0, todoList.length - 1),
+          { last: true, ...todoList[todoList.length - 1] },
         ];
 
   return (

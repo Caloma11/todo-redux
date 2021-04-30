@@ -1,11 +1,30 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { useDispatch } from "react-redux";
-import { deleteActiveNote } from "../redux/features/todoSlice";
+import { useSelector } from "react-redux";
+import { selectActiveNote } from "../redux/features/todoSlice";
 
-const DeleteNoteButton = ({ navigation }) => {
-  const dispatch = useDispatch();
+const DeleteNoteButton = ({ navigation, toggleLoaded }) => {
+  const activeNote = useSelector(selectActiveNote);
+
+  const requestDelete = () => {
+    fetch(
+      `https://polar-reaches-33143.herokuapp.com/api/v1/notes/${activeNote.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then(() => {
+        navigation.navigate("ListScreen");
+        toggleLoaded();
+      })
+      .catch((a) => console.log(a));
+  };
 
   const deleteTodo = () => {
     Alert.alert(
@@ -19,10 +38,7 @@ const DeleteNoteButton = ({ navigation }) => {
         },
         {
           text: "Yes",
-          onPress: () => {
-             dispatch(deleteActiveNote(""));
-             navigation.navigate("ListScreen");
-          },
+          onPress: requestDelete,
           style: "ok",
         },
       ],
