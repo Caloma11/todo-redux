@@ -76,7 +76,13 @@ const MainNavigator = () => {
                 : "Notes",
             headerTitleStyle: { paddingLeft: 16 },
             headerRight: () =>
-              pressedAmount === 0 ? null : <DeleteSelectionButton />,
+              pressedAmount === 0 ? null : (
+                <DeleteSelectionButton
+                  toggleLoaded={() => {
+                    setLoaded(!loaded);
+                  }}
+                />
+              ),
             headerLeft: () =>
               pressedAmount === 0 ? null : <UndoSelectionButton />,
 

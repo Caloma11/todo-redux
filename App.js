@@ -21,7 +21,6 @@ export default function App() {
   );
 }
 
-// Long press delete
 // Time updated
 // Login logout
-// Do not allow delete of non existant note
+// UX - very annoying to select description

@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextInput, StyleSheet, Dimensions } from 'react-native'
+import { TextInput, StyleSheet } from 'react-native'
 import { setCurrentDescription, selectCurrentDescription } from "../redux/features/todoSlice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -26,7 +26,6 @@ const DescriptionInput = () => {
 const styles = StyleSheet.create({
   description: {
     marginTop: 32,
-    // marginBottom:
     zIndex: 1,
   }
 })
