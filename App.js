@@ -20,3 +20,7 @@ export default function App() {
     </Provider>
   );
 }
+
+// Time updated
+// Login logout
+// UX - very annoying to select description

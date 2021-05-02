@@ -12,6 +12,8 @@ const initialState = {
   currentTitle: "",
   currentDescription: "",
   activeNote: {},
+  pressedAmount: 0,
+  selectedTodos: []
 };
 
 
@@ -22,6 +24,30 @@ const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
+    incrementPressedAmount: (state, action) => {
+      state.pressedAmount = state.pressedAmount + 1
+      console.log(state.pressedAmount)
+    },
+    decrementPressedAmount: (state, action) => {
+      state.pressedAmount = state.pressedAmount - 1
+      console.log(state.pressedAmount)
+    },
+    resetPressedAmount: (state, action) => {
+      state.pressedAmount = 0;
+      state.selectedTodos = [];
+    },
+    addSelectedTodo: (state, action) => {
+      state.selectedTodos.push(action.payload.id);
+      console.log(state.selectedTodos)
+    },
+    removeSelectedTodo: (state, action) => {
+      state.selectedTodos = state.selectedTodos.filter((todoId) => todoId !== action.payload.id)
+      console.log(state.selectedTodos)
+      console.log(action.payload.id)
+    },
+    clearSelectedTodos: (state, action) => {
+      state.selectedTodos = []
+    },
     loadTodoList: (state, action) => {
       state.todoList = action.payload;
     },
@@ -82,11 +108,20 @@ export const { updateActiveNote } = todoSlice.actions;
 export const { deleteActiveNote } = todoSlice.actions;
 export const { saveTodo } = todoSlice.actions;
 export const { loadTodoList } = todoSlice.actions;
+export const { incrementPressedAmount } = todoSlice.actions;
+export const { decrementPressedAmount } = todoSlice.actions;
+export const { resetPressedAmount } = todoSlice.actions;
+export const { addSelectedTodo } = todoSlice.actions;
+export const { removeSelectedTodo } = todoSlice.actions;
+export const { clearSelectedTodos } = todoSlice.actions;
+
 
 export const selectCurrentTitle = (state) => state.todos.currentTitle;
 export const selectCurrentDescription = (state) =>
   state.todos.currentDescription;
 export const selectActiveNote = (state) => state.todos.activeNote;
 export const selectTodoList = (state) => state.todos.todoList;
+export const selectPressedAmount = (state) => state.todos.pressedAmount;
+export const selectSelectedTodos = (state) => state.todos.selectedTodos;
 
 export default todoSlice.reducer;

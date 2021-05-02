@@ -5,9 +5,11 @@ import TodoRow from "./todoRow";
 
 const TodoList = ({navigation, todoList}) => {
 
-
   const renderItem = ({ item }) => (
-    <TodoRow item={item} navigation={navigation} />
+    <TodoRow
+      item={item}
+      navigation={navigation}
+    />
   );
 
   const data =

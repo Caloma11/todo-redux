@@ -47,7 +47,7 @@ const DeleteNoteButton = ({ navigation, toggleLoaded }) => {
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={deleteTodo}>
+    <TouchableOpacity style={styles.button} onPress={deleteTodo} disabled={!activeNote.id}>
       <FontAwesome name="trash-o" size={32} color="#a44a3f" />
     </TouchableOpacity>
   );

@@ -13,6 +13,7 @@ const ListScreen = ({navigation, loaded}) => {
     fetch("https://polar-reaches-33143.herokuapp.com/api/v1/notes")
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data)
         setTodoList(data);
       })
       .catch((a) => console.log(a));
