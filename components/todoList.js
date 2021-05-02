@@ -1,23 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { StyleSheet, FlatList, Dimensions } from 'react-native'
 import TodoRow from "./todoRow";
 
 
 const TodoList = ({navigation, todoList}) => {
 
-  const [pressedAmount, setPressedAmount] = useState(0);
-
-  useEffect(() => {
-    console.log(pressedAmount);
-  })
-
   const renderItem = ({ item }) => (
     <TodoRow
       item={item}
       navigation={navigation}
-      setPressedAmount={setPressedAmount}
-      pressedAmount={pressedAmount}
-       />
+    />
   );
 
   const data =

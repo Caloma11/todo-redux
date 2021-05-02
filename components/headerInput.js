@@ -4,6 +4,7 @@ import { StyleSheet, TextInput, View } from 'react-native'
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentTitle, selectCurrentTitle } from "../redux/features/todoSlice";
 
+
 const HeaderInput = () => {
 
   const currentTitle = useSelector(selectCurrentTitle);

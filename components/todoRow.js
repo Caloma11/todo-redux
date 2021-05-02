@@ -1,18 +1,26 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux';
-import { setActiveNote } from "../redux/features/todoSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveNote, selectPressedAmount, incrementPressedAmount, decrementPressedAmount } from "../redux/features/todoSlice";
 
 
-const TodoRow = ({item, navigation, pressedAmount, setPressedAmount }) => {
+const TodoRow = ({item, navigation }) => {
 
   const dispatch = useDispatch();
 
   const [pressed, setPressed] = useState(false);
 
+  const pressedAmount = useSelector(selectPressedAmount);
+
   const isLast = item.last ? styles.last : {};
   const isPressed = pressed ? styles.pressed : {};
 
+
+  useEffect(() => {
+    if (pressedAmount === 0) {
+      setPressed(false);
+    }
+  }, [pressedAmount])
 
   const handlePress = () => {
     if (pressedAmount === 0) {
@@ -20,14 +28,20 @@ const TodoRow = ({item, navigation, pressedAmount, setPressedAmount }) => {
       navigation.navigate("NoteScreen");
     } else {
       setPressed(!pressed);
-      setPressedAmount(pressedAmount + (!pressed ? 1 : -1));
+
+      if (pressed) {
+        dispatch(decrementPressedAmount(''))
+      } else {
+        dispatch(incrementPressedAmount(''))
+      }
+
     }
   };
 
 
   const handleLongPress = () => {
     setPressed(true);
-    setPressedAmount(pressedAmount + 1);
+    dispatch(incrementPressedAmount(''))
   }
   return (
     <TouchableOpacity
@@ -37,6 +51,7 @@ const TodoRow = ({item, navigation, pressedAmount, setPressedAmount }) => {
     >
       <Text style={styles.rowText}>{item.title}</Text>
     </TouchableOpacity>
+
   );
 }
 

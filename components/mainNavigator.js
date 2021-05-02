@@ -1,13 +1,17 @@
 import React, { useRef, useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
 import {
   createStackNavigator,
   HeaderBackButton,
 } from "@react-navigation/stack";
+
+import UndoSelectionButton from './undoSelectionButton';
+import DeleteSelectionButton from './deleteSelectionButton';
+
 import { useSelector } from "react-redux";
-import { selectCurrentDescription, selectCurrentTitle, selectActiveNote } from "../redux/features/todoSlice";
+import { selectCurrentDescription, selectCurrentTitle, selectActiveNote, selectPressedAmount } from "../redux/features/todoSlice";
 import HeaderInput from "./headerInput";
 // Screens
 import ListScreen from "../screens/listScreen";
@@ -21,16 +25,16 @@ const MainNavigator = () => {
   const description = useSelector(selectCurrentDescription);
   const title = useSelector(selectCurrentTitle);
   const activeNote = useSelector(selectActiveNote);
+  const pressedAmount = useSelector(selectPressedAmount);
+
 
   const [loaded, setLoaded] = useState(false);
 
-  // const toggleLoaded = setLoaded(!loaded);
-
   const backButtonPress = () => {
 
-    if ((activeNote.description === description) && (activeNote.title === title) && activeNote.id) {
+
+    if ((!description && !title) || ((activeNote.description === description) && (activeNote.title === title) && activeNote.id)) {
       navigationRef.current?.navigate("ListScreen");
-      console.log("im here")
       return;
     }
 
@@ -64,8 +68,19 @@ const MainNavigator = () => {
           name="ListScreen"
           options={{
             ...headerStyle,
-            headerTitle: "Notes",
+            headerTitle:
+              pressedAmount > 0
+                ? `${pressedAmount} note${
+                    pressedAmount === 1 ? "" : "s"
+                  } selected`
+                : "Notes",
             headerTitleStyle: { paddingLeft: 16 },
+            headerRight: () =>
+              pressedAmount === 0 ? null : <DeleteSelectionButton />,
+            headerLeft: () =>
+              pressedAmount === 0 ? null : <UndoSelectionButton />,
+
+            //             (    )
           }}
         >
           {(props) => <ListScreen {...props} loaded={loaded} />}
@@ -82,7 +97,14 @@ const MainNavigator = () => {
             headerTitle: () => <HeaderInput />,
           })}
         >
-        {(props) => <NoteScreen {...props} toggleLoaded={() => { setLoaded(!loaded) }} />}
+          {(props) => (
+            <NoteScreen
+              {...props}
+              toggleLoaded={() => {
+                setLoaded(!loaded);
+              }}
+            />
+          )}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

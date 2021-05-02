@@ -12,6 +12,7 @@ const initialState = {
   currentTitle: "",
   currentDescription: "",
   activeNote: {},
+  pressedAmount: 0,
 };
 
 
@@ -22,6 +23,15 @@ const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
+    incrementPressedAmount: (state, action) => {
+      state.pressedAmount = state.pressedAmount + 1
+    },
+    decrementPressedAmount: (state, action) => {
+      state.pressedAmount = state.pressedAmount - 1
+    },
+    resetPressedAmount: (state, action) => {
+      state.pressedAmount = 0;
+    },
     loadTodoList: (state, action) => {
       state.todoList = action.payload;
     },
@@ -82,11 +92,16 @@ export const { updateActiveNote } = todoSlice.actions;
 export const { deleteActiveNote } = todoSlice.actions;
 export const { saveTodo } = todoSlice.actions;
 export const { loadTodoList } = todoSlice.actions;
+export const { incrementPressedAmount } = todoSlice.actions;
+export const { decrementPressedAmount } = todoSlice.actions;
+export const { resetPressedAmount } = todoSlice.actions;
+
 
 export const selectCurrentTitle = (state) => state.todos.currentTitle;
 export const selectCurrentDescription = (state) =>
   state.todos.currentDescription;
 export const selectActiveNote = (state) => state.todos.activeNote;
 export const selectTodoList = (state) => state.todos.todoList;
+export const selectPressedAmount = (state) => state.todos.pressedAmount;
 
 export default todoSlice.reducer;
