@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     zIndex: 4,
     position: "absolute",
-    bottom: 80,
+    bottom: 40,
     right: 24,
     borderWidth: 1,
     borderColor: "#f3fcf0",

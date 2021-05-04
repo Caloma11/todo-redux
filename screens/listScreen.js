@@ -10,10 +10,11 @@ const ListScreen = ({navigation, loaded}) => {
 
   // Thunk function
   const fetchTodoList = () => {
+      setTodoList([{title: 'Loading...', description: 'Loading...', id: 999 }])
+
     fetch("https://polar-reaches-33143.herokuapp.com/api/v1/notes")
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data)
         setTodoList(data);
       })
       .catch((a) => console.log(a));

@@ -21,6 +21,5 @@ export default function App() {
   );
 }
 
-// Time updated
 // Login logout
 // UX - very annoying to select description

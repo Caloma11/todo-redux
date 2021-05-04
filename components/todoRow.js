@@ -49,6 +49,16 @@ const TodoRow = ({item, navigation }) => {
     handlePress(false);
   }
 
+  const parsedDate = (item) => {
+    if (!item.updated_at) return '';
+    const dateObj = new Date(item.updated_at);
+    const month = dateObj.getUTCMonth() + 1; //months from 1-12
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
+
+    return (day + "/" + month + "/" + year);
+  }
+
   return (
     <TouchableOpacity
       style={[styles.row, isLast, isPressed]}
@@ -56,8 +66,8 @@ const TodoRow = ({item, navigation }) => {
       onLongPress={handleLongPress}
     >
       <Text style={styles.rowText}>{item.title}</Text>
+      <Text style={styles.rowDate}>{parsedDate(item)}</Text>
     </TouchableOpacity>
-
   );
 }
 
@@ -68,16 +78,22 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 32,
     borderWidth: 1,
-    borderColor: 'gray'
+    borderColor: 'gray',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   rowText: {
     fontSize: 20,
-    color: "#23231a"
+    color: "#23231a",
+    flexGrow: 1,
   },
   last: {
     borderBottomWidth: 2,
   },
   pressed: {
     backgroundColor: 'darkgray'
+  },
+  rowDate: {
+    color: 'gray'
   }
 })
