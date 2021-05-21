@@ -21,6 +21,8 @@ export default function App() {
   );
 }
 
+// style sign in
+// make login screen unavailable when there is a user
 // logout
 // sign up
 // loading on sign in

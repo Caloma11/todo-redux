@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, TextInput, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, TextInput, View, Dimensions } from 'react-native'
 import { useDispatch } from 'react-redux';
 import { setCurrentUserToken } from '../redux/features/todoSlice';
 
@@ -38,29 +38,27 @@ const loginScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
         onChangeText={onChangeEmail}
         value={email}
         placeholder="Username"
+        autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
         onChangeText={onChangePassword}
         value={password}
         placeholder="Password"
-        keyboardType="numeric"
+        autoCapitalize="none"
+        secureTextEntry={true}
       />
-      { errors && (
-        <TextInput style={styles.errors}>
-          {errors[0]}
-        </TextInput>
-      )}
+      {errors && <TextInput style={styles.errors}>{errors[0]}</TextInput>}
       <TouchableOpacity style={styles.button} onPress={onPress}>
         <Text style={[styles.input, styles.submit]}>Submit</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -68,29 +66,33 @@ export default loginScreen
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
+    height: 48,
     margin: 12,
     borderWidth: 1,
-    padding: 8,
-    borderRadius: 4
+    padding: 12,
+    borderRadius: 4,
   },
   container: {
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 32,
-    minHeight: 500
+    minWidth: Dimensions.get("window").width,
+    height: Dimensions.get("window").height + 40,
+    backgroundColor: "#FBB7C0",
+    flex: 1,
+    position: "absolute",
   },
   submit: {
-    textAlign: 'center',
-    backgroundColor: 'gray',
-    color: 'white',
-    fontWeight: 'bold',
+    textAlign: "center",
+    backgroundColor: "#23231A",
+    color: "#F3FCF0",
+    fontWeight: "bold",
     borderRadius: 8,
-    borderColor: 'transparent'
+    borderColor: "transparent",
   },
   errors: {
-    color: 'red',
+    color: "red",
     marginLeft: 12,
-  }
+  },
 });
 
 
