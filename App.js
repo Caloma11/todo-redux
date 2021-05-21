@@ -21,5 +21,7 @@ export default function App() {
   );
 }
 
-// Login logout
-// UX - very annoying to select description
+// logout
+// sign up
+// loading on sign in
+// cache session

@@ -13,7 +13,8 @@ const initialState = {
   currentDescription: "",
   activeNote: {},
   pressedAmount: 0,
-  selectedTodos: []
+  selectedTodos: [],
+  currentUserToken: null,
 };
 
 
@@ -24,6 +25,9 @@ const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
+    setCurrentUserToken: (state, action) => {
+      state.currentUserToken = action.payload;
+    },
     incrementPressedAmount: (state, action) => {
       state.pressedAmount = state.pressedAmount + 1
       console.log(state.pressedAmount)
@@ -101,6 +105,7 @@ const todoSlice = createSlice({
   },
 });
 
+export const { setCurrentUserToken } = todoSlice.actions;
 export const { setCurrentTitle } = todoSlice.actions;
 export const { setCurrentDescription } = todoSlice.actions;
 export const { setActiveNote } = todoSlice.actions;
@@ -116,6 +121,7 @@ export const { removeSelectedTodo } = todoSlice.actions;
 export const { clearSelectedTodos } = todoSlice.actions;
 
 
+export const selectCurrentUserToken = (state) => state.todos.currentUserToken;
 export const selectCurrentTitle = (state) => state.todos.currentTitle;
 export const selectCurrentDescription = (state) =>
   state.todos.currentDescription;

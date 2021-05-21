@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, FlatList, Dimensions } from 'react-native'
 import TodoRow from "./todoRow";
 
 
 const TodoList = ({navigation, todoList}) => {
+
+  useEffect(() => {
+    console.log({todoList})
+  }, [])
 
   const renderItem = ({ item }) => (
     <TodoRow
@@ -13,7 +17,7 @@ const TodoList = ({navigation, todoList}) => {
   );
 
   const data =
-    todoList.length === 0
+    (todoList.length === 0 || todoList.error )
       ? []
       : [
           ...todoList.slice(0, todoList.length - 1),

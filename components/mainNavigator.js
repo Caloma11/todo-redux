@@ -11,11 +11,12 @@ import UndoSelectionButton from './undoSelectionButton';
 import DeleteSelectionButton from './deleteSelectionButton';
 
 import { useSelector } from "react-redux";
-import { selectCurrentDescription, selectCurrentTitle, selectActiveNote, selectPressedAmount } from "../redux/features/todoSlice";
+import { selectCurrentDescription, selectCurrentTitle, selectActiveNote, selectPressedAmount, selectCurrentUserToken } from "../redux/features/todoSlice";
 import HeaderInput from "./headerInput";
 // Screens
 import ListScreen from "../screens/listScreen";
 import NoteScreen from "../screens/noteScreen";
+import LoginScreen from "../screens/loginScreen";
 
 const MainNavigator = () => {
 
@@ -26,6 +27,7 @@ const MainNavigator = () => {
   const title = useSelector(selectCurrentTitle);
   const activeNote = useSelector(selectActiveNote);
   const pressedAmount = useSelector(selectPressedAmount);
+  const currentUserToken = useSelector(selectCurrentUserToken);
 
 
   const [loaded, setLoaded] = useState(false);
@@ -43,26 +45,27 @@ const MainNavigator = () => {
     const urlSuffix = activeNote.id ? `/${activeNote.id}` : ''
     const verb = activeNote.id ? 'PATCH' : 'POST'
 
-    fetch(`https://polar-reaches-33143.herokuapp.com/api/v1/notes${urlSuffix}`, {
-    method: verb,
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ note: note})
+    fetch(`http://aff745a7a6e0.ngrok.io/api/v1/notes${urlSuffix}`, {
+      method: verb,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `token ${currentUserToken}`,
+      },
+      body: JSON.stringify({ note: note }),
     })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((a) => console.log(a));
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((a) => console.log(a));
     navigationRef.current?.navigate("ListScreen")
     setLoaded(!loaded);
   };
 
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName={currentUserToken ? "ListScreen" : "Login"}>
         <Stack.Screen
           a={9}
           name="ListScreen"
@@ -112,6 +115,7 @@ const MainNavigator = () => {
             />
           )}
         </Stack.Screen>
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
