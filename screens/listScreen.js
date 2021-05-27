@@ -14,7 +14,7 @@ const ListScreen = ({navigation, loaded}) => {
   const fetchTodoList = () => {
       setTodoList([{title: 'Loading...', description: 'Loading...', id: 999 }])
 
-    fetch("http://aff745a7a6e0.ngrok.io/api/v1/notes", {
+    fetch("http://80d7e2c8b219.ngrok.io/api/v1/notes", {
       headers: {
         Authorization: `token ${currentUserToken}`,
       },

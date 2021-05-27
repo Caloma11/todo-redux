@@ -45,7 +45,7 @@ const MainNavigator = () => {
     const urlSuffix = activeNote.id ? `/${activeNote.id}` : ''
     const verb = activeNote.id ? 'PATCH' : 'POST'
 
-    fetch(`http://aff745a7a6e0.ngrok.io/api/v1/notes${urlSuffix}`, {
+    fetch(`http://80d7e2c8b219.ngrok.io/api/v1/notes${urlSuffix}`, {
       method: verb,
       headers: {
         Accept: "application/json",

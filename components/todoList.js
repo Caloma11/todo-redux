@@ -6,7 +6,7 @@ import TodoRow from "./todoRow";
 const TodoList = ({navigation, todoList}) => {
 
   useEffect(() => {
-    console.log({todoList})
+    // console.log({todoList})
   }, [])
 
   const renderItem = ({ item }) => (

@@ -2,10 +2,11 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { useSelector } from "react-redux";
-import { selectActiveNote } from "../redux/features/todoSlice";
+import { selectActiveNote, selectCurrentUserToken } from "../redux/features/todoSlice";
 
 const DeleteNoteButton = ({ navigation, toggleLoaded }) => {
   const activeNote = useSelector(selectActiveNote);
+  const currentUserToken = useSelector(selectCurrentUserToken);
 
   const requestDelete = () => {
     fetch(
@@ -15,6 +16,7 @@ const DeleteNoteButton = ({ navigation, toggleLoaded }) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `token ${currentUserToken}`,
         },
       }
     )

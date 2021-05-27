@@ -20,10 +20,10 @@ export default function App() {
     </Provider>
   );
 }
+// Remember to change ngrok urls
 
-// style sign in
-// make login screen unavailable when there is a user
+
 // logout
 // sign up
-// loading on sign in
+
 // cache session

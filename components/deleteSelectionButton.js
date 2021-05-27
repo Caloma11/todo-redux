@@ -1,27 +1,33 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { selectSelectedTodos, resetPressedAmount  } from "../redux/features/todoSlice";
+import { selectSelectedTodos, resetPressedAmount, selectCurrentUserToken  } from "../redux/features/todoSlice";
 import { FontAwesome } from "@expo/vector-icons";
 
 
 const DeleteSelectionButton = ({toggleLoaded}) => {
 
   const selectedTodos = useSelector(selectSelectedTodos);
+    const currentUserToken = useSelector(selectCurrentUserToken);
+
   const dispatch = useDispatch();
 
   const requestDelete = () => {
-    fetch(`https://polar-reaches-33143.herokuapp.com/api/v1/notes/bulk`, {
+    console.log("IM HEREEE")
+    fetch(`http://80d7e2c8b219.ngrok.io/api/v1/notes/bulk`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `token ${currentUserToken}`,
       },
       body: JSON.stringify({ notes: selectedTodos }),
     })
       .then((response) => response.json())
       .then((data) => {
-        dispatch(resetPressedAmount(''));
+        console.log(data);
+        console.log("!!!!!!!!!!!111");
+        dispatch(resetPressedAmount(""));
         toggleLoaded();
       })
       .catch((a) => console.log(a));

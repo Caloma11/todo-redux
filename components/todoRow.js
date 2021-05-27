@@ -17,7 +17,7 @@ const TodoRow = ({item, navigation }) => {
 
 
   useEffect(() => {
-    console.log(item)
+    // console.log(item)
     if (pressedAmount === 0) {
       setPressed(false);
     }

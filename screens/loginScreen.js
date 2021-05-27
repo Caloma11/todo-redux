@@ -1,14 +1,28 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, TextInput, View, Dimensions } from 'react-native'
-import { useDispatch } from 'react-redux';
-import { setCurrentUserToken } from '../redux/features/todoSlice';
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, TouchableOpacity, TextInput, View, Dimensions, ActivityIndicator } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUserToken, selectCurrentUserToken } from '../redux/features/todoSlice';
+import { Foundation } from "@expo/vector-icons";
+
 
 const loginScreen = ({ navigation }) => {
   const [email, onChangeEmail] = useState(null);
   const [password, onChangePassword] = useState(null);
   const [errors, setErrors] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+
+  const currentUserToken = useSelector(selectCurrentUserToken);
+
+
+  useEffect(() => {
+    if (currentUserToken) {
+      navigation.addListener('beforeRemove', (e) => {
+        e.preventDefault();
+      })
+    }
+  }, [navigation])
 
   const handleData = (data) => {
     if (data.errors) {
@@ -18,27 +32,38 @@ const loginScreen = ({ navigation }) => {
       dispatch(setCurrentUserToken(data.token));
       navigation.navigate('ListScreen')
     }
+    setLoading(false);
   }
 
   const onPress = () => {
     // fetch("http://localhost:3000/api/v1/auth", {
-    fetch("http://aff745a7a6e0.ngrok.io/api/v1/auth", {
+    setLoading(true);
+    fetch("http://80d7e2c8b219.ngrok.io/api/v1/auth", {
       method: "POST",
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ user: { email: email, password: password } }),
     })
       .then((response) => response.json())
       .then((data) => {
-        handleData(data)
+        handleData(data);
       })
       .catch((a) => console.log(a));
   };
 
   return (
     <View style={styles.container}>
+      <View style={styles.centeredContainer}>
+        <Foundation
+          name="clipboard-pencil"
+          size={120}
+          color="black"
+          style={styles.clipboard}
+        />
+        {loading && <ActivityIndicator size="large" color="#23231A" style={styles.loader} />}
+      </View>
       <TextInput
         style={styles.input}
         onChangeText={onChangeEmail}
@@ -80,6 +105,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#FBB7C0",
     flex: 1,
     position: "absolute",
+    paddingTop: 0
+  },
+  centeredContainer: {
+    alignItems: 'center',
+    marginTop: -120,
+    paddingBottom: 64
   },
   submit: {
     textAlign: "center",
@@ -93,6 +124,14 @@ const styles = StyleSheet.create({
     color: "red",
     marginLeft: 12,
   },
+  cliboard: {
+    margin: 'auto'
+  },
+  loader: {
+    position: 'absolute',
+    top: -64,
+    right: 0
+  }
 });
 
 
