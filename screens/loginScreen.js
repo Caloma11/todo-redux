@@ -17,11 +17,11 @@ const loginScreen = ({ navigation }) => {
 
 
   useEffect(() => {
-    if (currentUserToken) {
-      navigation.addListener('beforeRemove', (e) => {
-        e.preventDefault();
-      })
-    }
+    // if (currentUserToken) {
+    //   navigation.addListener('beforeRemove', (e) => {
+    //     e.preventDefault();
+    //   })
+    // }
   }, [navigation])
 
   const handleData = (data) => {
@@ -29,6 +29,7 @@ const loginScreen = ({ navigation }) => {
       setErrors(data.errors)
     } else {
       setErrors(null)
+      console.log({token: data.token})
       dispatch(setCurrentUserToken(data.token));
       navigation.navigate('ListScreen')
     }

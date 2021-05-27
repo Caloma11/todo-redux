@@ -9,6 +9,7 @@ import {
 
 import UndoSelectionButton from './undoSelectionButton';
 import DeleteSelectionButton from './deleteSelectionButton';
+import OptionsButton from './optionsButton';
 
 import { useSelector } from "react-redux";
 import { selectCurrentDescription, selectCurrentTitle, selectActiveNote, selectPressedAmount, selectCurrentUserToken } from "../redux/features/todoSlice";
@@ -77,7 +78,7 @@ const MainNavigator = () => {
                     pressedAmount === 1 ? "" : "s"
                   } selected`
                 : "Notes",
-            headerTitleStyle: { paddingLeft: 16 },
+            headerTitleStyle: { },
             headerRight: () =>
               pressedAmount === 0 ? null : (
                 <DeleteSelectionButton
@@ -87,7 +88,7 @@ const MainNavigator = () => {
                 />
               ),
             headerLeft: () =>
-              pressedAmount === 0 ? null : <UndoSelectionButton />,
+              pressedAmount === 0 ? <OptionsButton /> : <UndoSelectionButton />,
 
             //             (    )
           }}
