@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import TodoList from "../components/todoList";
 import AddNoteButton from "../components/addNoteButton";
+import Sidebar from "../components/sidebar";
 import { useSelector } from 'react-redux';
-import { selectCurrentUserToken } from '../redux/features/todoSlice';
+import { selectCurrentUserToken, selectSidebarToggled } from '../redux/features/todoSlice';
 
 const ListScreen = ({navigation, loaded}) => {
 
   const [todoList, setTodoList] = useState([]);
   const currentUserToken = useSelector(selectCurrentUserToken);
+  const sidebarToggled = useSelector(selectSidebarToggled);
 
   // Thunk function
   const fetchTodoList = () => {
@@ -33,6 +35,9 @@ const ListScreen = ({navigation, loaded}) => {
 
   return (
     <View style={styles.container}>
+      {
+        sidebarToggled && <Sidebar navigation={navigation} />
+      }
       <TodoList navigation={navigation} todoList={todoList}/>
       <AddNoteButton navigation={navigation} />
     </View>

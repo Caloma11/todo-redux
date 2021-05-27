@@ -10,7 +10,7 @@ const DeleteNoteButton = ({ navigation, toggleLoaded }) => {
 
   const requestDelete = () => {
     fetch(
-      `https://polar-reaches-33143.herokuapp.com/api/v1/notes/${activeNote.id}`,
+      `http://80d7e2c8b219.ngrok.io/api/v1/notes/${activeNote.id}`,
       {
         method: "DELETE",
         headers: {
