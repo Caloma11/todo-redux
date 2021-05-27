@@ -35,9 +35,9 @@ const ListScreen = ({navigation, loaded}) => {
 
   return (
     <View style={styles.container}>
-      {/* {
-        sidebarToggled && <Sidebar />
-      } */}
+      {
+        sidebarToggled && <Sidebar navigation={navigation} />
+      }
       <TodoList navigation={navigation} todoList={todoList}/>
       <AddNoteButton navigation={navigation} />
     </View>

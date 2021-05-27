@@ -22,8 +22,6 @@ export default function App() {
 }
 // Remember to change ngrok urls
 
-
-// logout
 // sign up
 
 // cache session

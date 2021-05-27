@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, TouchableOpacity, TextInput, View, Dimensions, ActivityIndicator } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUserToken, selectCurrentUserToken } from '../redux/features/todoSlice';
+import { setCurrentUserToken } from '../redux/features/todoSlice';
 import { Foundation } from "@expo/vector-icons";
 
 
-const loginScreen = ({ navigation }) => {
+const loginScreen = ({ route, navigation }) => {
   const [email, onChangeEmail] = useState(null);
   const [password, onChangePassword] = useState(null);
   const [errors, setErrors] = useState(null);
@@ -13,16 +13,13 @@ const loginScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  const currentUserToken = useSelector(selectCurrentUserToken);
-
-
   useEffect(() => {
     // if (currentUserToken) {
     //   navigation.addListener('beforeRemove', (e) => {
     //     e.preventDefault();
     //   })
     // }
-  }, [navigation])
+  }, [])
 
   const handleData = (data) => {
     if (data.errors) {
