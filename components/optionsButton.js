@@ -1,11 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Entypo } from "@expo/vector-icons";
+import { setSidebarToggled } from '../redux/features/todoSlice';
+import { useDispatch } from 'react-redux';
 
 const OptionsButton = () => {
 
+  const dispatch = useDispatch();
+
   const handlePress = () => {
-    console.log("hahaha")
+    dispatch(setSidebarToggled(true));
   }
 
   return (

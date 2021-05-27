@@ -78,7 +78,7 @@ const MainNavigator = () => {
                     pressedAmount === 1 ? "" : "s"
                   } selected`
                 : "Notes",
-            headerTitleStyle: { },
+            headerTitleStyle: {  },
             headerRight: () =>
               pressedAmount === 0 ? null : (
                 <DeleteSelectionButton
